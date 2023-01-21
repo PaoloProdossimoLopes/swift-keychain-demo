@@ -12,7 +12,6 @@
 		B1D69952297B375700B82032 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D69951297B375700B82032 /* ViewController.swift */; };
 		B1D69957297B375900B82032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1D69956297B375900B82032 /* Assets.xcassets */; };
 		B1D6995A297B375900B82032 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1D69958297B375900B82032 /* LaunchScreen.storyboard */; };
-		B1D69965297B375900B82032 /* swift_keychain_adavanced_demoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D69964297B375900B82032 /* swift_keychain_adavanced_demoTests.swift */; };
 		B1D6997F297B3A0600B82032 /* Writter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6997E297B3A0600B82032 /* Writter.swift */; };
 		B1D69981297B3A0B00B82032 /* Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D69980297B3A0B00B82032 /* Reader.swift */; };
 		B1D69985297B3A5C00B82032 /* KeychainAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D69984297B3A5C00B82032 /* KeychainAdapter.swift */; };
@@ -29,6 +28,7 @@
 		B1D6999C297B844500B82032 /* CFString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6999B297B844500B82032 /* CFString+Extensions.swift */; };
 		B1D6999E297BE78000B82032 /* KeychainListerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6999D297BE78000B82032 /* KeychainListerAdapter.swift */; };
 		B1D699A0297BE7A600B82032 /* Lister.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6999F297BE7A600B82032 /* Lister.swift */; };
+		B1D699A2297C083800B82032 /* KeychainWritterAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D699A1297C083800B82032 /* KeychainWritterAdapterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,6 @@
 		B1D69959297B375900B82032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1D6995B297B375900B82032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1D69960297B375900B82032 /* swift-keychain-adavanced-demoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-keychain-adavanced-demoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1D69964297B375900B82032 /* swift_keychain_adavanced_demoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_keychain_adavanced_demoTests.swift; sourceTree = "<group>"; };
 		B1D6997E297B3A0600B82032 /* Writter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Writter.swift; sourceTree = "<group>"; };
 		B1D69980297B3A0B00B82032 /* Reader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reader.swift; sourceTree = "<group>"; };
 		B1D69984297B3A5C00B82032 /* KeychainAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAdapter.swift; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		B1D6999B297B844500B82032 /* CFString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CFString+Extensions.swift"; sourceTree = "<group>"; };
 		B1D6999D297BE78000B82032 /* KeychainListerAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainListerAdapter.swift; sourceTree = "<group>"; };
 		B1D6999F297BE7A600B82032 /* Lister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lister.swift; sourceTree = "<group>"; };
+		B1D699A1297C083800B82032 /* KeychainWritterAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWritterAdapterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +123,7 @@
 		B1D69963297B375900B82032 /* swift-keychain-adavanced-demoTests */ = {
 			isa = PBXGroup;
 			children = (
-				B1D69964297B375900B82032 /* swift_keychain_adavanced_demoTests.swift */,
+				B1D699A1297C083800B82032 /* KeychainWritterAdapterTests.swift */,
 			);
 			path = "swift-keychain-adavanced-demoTests";
 			sourceTree = "<group>";
@@ -300,7 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1D69965297B375900B82032 /* swift_keychain_adavanced_demoTests.swift in Sources */,
+				B1D699A2297C083800B82032 /* KeychainWritterAdapterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

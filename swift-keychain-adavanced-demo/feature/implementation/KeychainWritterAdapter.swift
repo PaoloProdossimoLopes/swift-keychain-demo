@@ -1,6 +1,9 @@
 import Foundation
 
-final class KeychainWritterAdapter: Writter {
+struct KeychainWritterAdapter: Writter {
+    typealias Operation = (CFDictionary, UnsafeMutablePointer<CFTypeRef?>?) -> OSStatus
+    var write: Operation = SecItemAdd
+    
     func write(_ params: WritterParams) throws {
         let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
@@ -9,7 +12,7 @@ final class KeychainWritterAdapter: Writter {
             kSecValueData.asString: params.secure.asAnyObject
         ]
         
-        let status = SecItemAdd(query as CFDictionary, nil)
+        let status = write(query as CFDictionary, nil)
         
         guard status != errSecItemNotFound else {
             throw KeychainError.notFound

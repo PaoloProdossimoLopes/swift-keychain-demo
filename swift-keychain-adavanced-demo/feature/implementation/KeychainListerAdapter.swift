@@ -2,6 +2,9 @@ import Foundation
 
 final class KeychainListerAdapter: Lister {
     
+    typealias Operation = (CFDictionary, UnsafeMutablePointer<CFTypeRef?>?) -> OSStatus
+    var read: Operation = SecItemCopyMatching
+    
     func list(_ params: ListParams) throws -> [ListResult] {
         let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
@@ -12,13 +15,11 @@ final class KeychainListerAdapter: Lister {
         ]
         
         var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        let status = read(query as CFDictionary, &result)
         
         guard status == errSecSuccess else {
             throw KeychainError.unexpected(status)
         }
-
-        print("Operation finished with status: \(status)")
         let array = result as! [NSDictionary]
         
         let params = array.map { dic in

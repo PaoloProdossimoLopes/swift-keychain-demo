@@ -1,6 +1,10 @@
 import Foundation
 
 final class KeychainReaderAdapter: Reader {
+    
+    typealias Operation = (CFDictionary, UnsafeMutablePointer<CFTypeRef?>?) -> OSStatus
+    var read: Operation = SecItemCopyMatching
+    
     func read(_ params: ReadParams) throws -> ReadResult {
         let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
@@ -11,7 +15,7 @@ final class KeychainReaderAdapter: Reader {
         ]
         
         var itemCopy: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &itemCopy)
+        let status = read(query as CFDictionary, &itemCopy)
         
         guard status != errSecItemNotFound else {
             throw KeychainError.notFound

@@ -1,6 +1,9 @@
 import Foundation
 
 final class KeychainUpdaterAdapter: Updater {
+    typealias Operation = (CFDictionary, CFDictionary) -> OSStatus
+    var update: Operation = SecItemUpdate
+    
     func update(_ params: UpdateParams) throws {
         let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
@@ -12,7 +15,7 @@ final class KeychainUpdaterAdapter: Updater {
             kSecValueData.asString: params.security.asAnyObject
         ]
         
-        let status = SecItemUpdate(
+        let status = update(
             query as CFDictionary,
             attributes as CFDictionary
         )
