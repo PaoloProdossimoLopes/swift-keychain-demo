@@ -9,9 +9,9 @@ struct KeychainListerAdapter: Lister {
         let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
             kSecClass.asString: kSecClassGenericPassword,
-            kSecReturnAttributes.asString: true as AnyObject,
+            kSecReturnAttributes.asString: kCFBooleanTrue,
             kSecMatchLimit.asString: 5 as AnyObject,
-            kSecReturnData.asString: true as AnyObject
+            kSecReturnData.asString: kCFBooleanTrue
         ]
         
         var result: AnyObject?

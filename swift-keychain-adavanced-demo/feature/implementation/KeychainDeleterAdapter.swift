@@ -1,6 +1,6 @@
 import Foundation
 
-final class KeychainDeleterAdapter: Deleter {
+struct KeychainDeleterAdapter: Deleter {
     
     typealias Operation = (CFDictionary) -> OSStatus
     var delete: Operation = SecItemDelete
