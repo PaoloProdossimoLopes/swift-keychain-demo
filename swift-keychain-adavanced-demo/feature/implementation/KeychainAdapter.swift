@@ -1,20 +1,55 @@
 import Foundation
 
+typealias KeychainQueryParams = [String: AnyObject]
 struct KeychainAdapter {
-    private typealias QueryParams = [String: AnyObject]
-}
-
-private extension KeychainAdapter {
-    enum Error: Swift.Error {
-        case notFound
-        case invalidItemFormat
-        case unexpected(OSStatus)
+    
+    private let witter: WritterSecureClient
+    private let reader: ReaderSecureClient
+    private let updater: UpdaterSecureClient
+    private let deleter: DeleterSecureClient
+    
+    init(witter: WritterSecureClient, reader: ReaderSecureClient, updater: UpdaterSecureClient, deleter: DeleterSecureClient) {
+        self.witter = witter
+        self.reader = reader
+        self.updater = updater
+        self.deleter = deleter
     }
 }
 
 extension KeychainAdapter: WritterSecureClient {
     func write(_ params: WritterParams) throws {
-        let query: QueryParams = [
+        try witter.write(params)
+    }
+}
+
+extension KeychainAdapter: ReaderSecureClient {
+    func read(_ params: ReadParams) throws -> ReadResult {
+        try reader.read(params)
+    }
+}
+
+extension KeychainAdapter: UpdaterSecureClient {
+    func update(_ params: DeleteParams) throws {
+        try updater.update(params)
+    }
+}
+
+extension KeychainAdapter: DeleterSecureClient {
+    func delete(_ params: DeleteParams) throws {
+        try deleter.delete(params)
+    }
+    
+}
+
+enum KeychainError: Swift.Error {
+    case notFound
+    case invalidItemFormat
+    case unexpected(OSStatus)
+}
+
+final class KeychainWritterAdapter: WritterSecureClient {
+    func write(_ params: WritterParams) throws {
+        let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
             kSecAttrAccount.asString: params.identifier.asAnyObject,
             kSecClass.asString: kSecClassGenericPassword,
@@ -24,18 +59,18 @@ extension KeychainAdapter: WritterSecureClient {
         let status = SecItemAdd(query as CFDictionary, nil)
         
         guard status != errSecItemNotFound else {
-            throw Error.notFound
+            throw KeychainError.notFound
         }
         
         guard status == errSecSuccess else {
-            throw Error.unexpected(status)
+            throw KeychainError.unexpected(status)
         }
     }
 }
 
-extension KeychainAdapter: ReaderSecureClient {
+final class KeychainReaderAdapter: ReaderSecureClient {
     func read(_ params: ReadParams) throws -> ReadResult {
-        let query: QueryParams = [
+        let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
             kSecAttrAccount.asString: params.identifier.asAnyObject,
             kSecClass.asString: kSecClassGenericPassword,
@@ -47,24 +82,24 @@ extension KeychainAdapter: ReaderSecureClient {
         let status = SecItemCopyMatching(query as CFDictionary, &itemCopy)
         
         guard status != errSecItemNotFound else {
-            throw Error.notFound
+            throw KeychainError.notFound
         }
         
         guard status == errSecSuccess else {
-            throw Error.unexpected(status)
+            throw KeychainError.unexpected(status)
         }
         
         guard let security = itemCopy as? Data else {
-            throw Error.invalidItemFormat
+            throw KeychainError.invalidItemFormat
         }
         
         return ReadResult(secure: security)
     }
 }
 
-extension KeychainAdapter: DeleterSecureClient {
+final class KeychainDeleterAdapter: DeleterSecureClient {
     func delete(_ params: DeleteParams) throws {
-        let query: QueryParams = [
+        let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
             kSecAttrAccount.asString: params.identifier.asAnyObject,
             kSecClass.asString: kSecClassGenericPassword
@@ -73,14 +108,14 @@ extension KeychainAdapter: DeleterSecureClient {
         let status = SecItemDelete(query as CFDictionary)
         
         guard status == errSecSuccess else {
-            throw Error.unexpected(status)
+            throw KeychainError.unexpected(status)
         }
     }
 }
 
-extension KeychainAdapter: UpdaterSecureClient {
+final class KeychainUpdaterAdapter: UpdaterSecureClient {
     func update(_ params: DeleteParams) throws {
-        let query: QueryParams = [
+        let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
             kSecAttrAccount.asString: params.identifier.asAnyObject,
             kSecClass.asString: kSecClassGenericPassword
@@ -96,11 +131,11 @@ extension KeychainAdapter: UpdaterSecureClient {
         )
         
         guard status != errSecItemNotFound else {
-            throw Error.notFound
+            throw KeychainError.notFound
         }
         
         guard status == errSecSuccess else {
-            throw Error.unexpected(status)
+            throw KeychainError.unexpected(status)
         }
     }
 }

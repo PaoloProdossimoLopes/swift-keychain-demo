@@ -18,7 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let client = KeychainAdapter()
+        let writter = KeychainWritterAdapter()
+        let reader = KeychainReaderAdapter()
+        let updater = KeychainUpdaterAdapter()
+        let deleter = KeychainDeleterAdapter()
+        let client = KeychainAdapter(
+            witter: writter,
+            reader: reader,
+            updater: updater,
+            deleter: deleter
+        )
         window?.rootViewController = ViewController(writter: client, reader: client)
         window?.makeKeyAndVisible()
     }
