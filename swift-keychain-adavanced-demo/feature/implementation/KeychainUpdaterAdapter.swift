@@ -1,7 +1,7 @@
 import Foundation
 
 final class KeychainUpdaterAdapter: Updater {
-    func update(_ params: DeleteParams) throws {
+    func update(_ params: UpdateParams) throws {
         let query: KeychainQueryParams = [
             kSecAttrService.asString: params.application.asAnyObject,
             kSecAttrAccount.asString: params.identifier.asAnyObject,

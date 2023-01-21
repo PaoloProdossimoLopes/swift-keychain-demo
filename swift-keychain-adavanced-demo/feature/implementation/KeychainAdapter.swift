@@ -37,7 +37,7 @@ extension KeychainAdapter: Reader {
 }
 
 extension KeychainAdapter: Updater {
-    func update(_ params: DeleteParams) throws {
+    func update(_ params: UpdateParams) throws {
         try updater.update(params)
     }
 }

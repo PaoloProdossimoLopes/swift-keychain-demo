@@ -9,9 +9,14 @@ struct ReadFields {
     let account: String
 }
 
+struct DeleteFields {
+    let account: String
+}
+
 protocol ViewDelegate: AnyObject {
     func writeDidTapped(_ fields: WriteFields)
     func getDidTapped(_ fields: ReadFields)
+    func deleteDidTapped(_ fields: DeleteFields)
     func listDidTapped()
 }
 
@@ -65,6 +70,25 @@ final class View: UIView {
         return button
     }()
     
+    private lazy var deleteAccountPlaceholder: UITextField = {
+        let field = UITextField()
+        field.placeholder = "Account"
+        field.translatesAutoresizingMaskIntoConstraints = false
+        return field
+    }()
+    
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Delete", for: .normal)
+        button.backgroundColor = .systemRed
+        button.layer.cornerRadius = 8
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        button.addTarget(self, action: #selector(deleteDidTapped), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var listButton: UIButton = {
         let button = UIButton()
         button.setTitle("List", for: .normal)
@@ -95,7 +119,9 @@ final class View: UIView {
         super.init(frame: frame)
         [
             writeAccountPlaceholder, writePasswordPlaceholder, writeButton,
-            getAccountPlaceholder, getButton, listButton, tableView
+            getAccountPlaceholder, getButton,
+            deleteAccountPlaceholder, deleteButton,
+            listButton, tableView
         ].forEach(stack.addArrangedSubview)
         
         addSubview(stack)
@@ -123,6 +149,12 @@ final class View: UIView {
     
     @objc private func getDidTapped() {
         delegate?.getDidTapped(ReadFields(
+            account: getAccountPlaceholder.text!
+        ))
+    }
+    
+    @objc private func deleteDidTapped() {
+        delegate?.deleteDidTapped(DeleteFields(
             account: getAccountPlaceholder.text!
         ))
     }

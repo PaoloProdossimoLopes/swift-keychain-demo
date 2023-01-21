@@ -1,6 +1,6 @@
 import UIKit
 
-typealias ReaderAndWritter = Writter & Reader & Lister
+typealias ReaderAndWritter = Writter & Reader & Lister & Deleter
 
 final class ViewController: UIViewController {
     
@@ -40,11 +40,6 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController: ViewDelegate {
-    func listDidTapped() {
-        let params = ListParams(application: application)
-        let result = (try? client.list(params)) ?? []
-        contentView.reloadList(with: result)
-    }
     
     func writeDidTapped(_ fields: WriteFields) {
         do {
@@ -72,12 +67,40 @@ extension ViewController: ViewDelegate {
                 identifier: fields.account
             ))
             let passwordRecieved = result.secure.asString
+            presentAlert(
+                withTitle: "Read Success",
+                message: "A senha é: \(passwordRecieved)"
+            )
         } catch let error {
             presentAlert(
                 withTitle: "Read Failed",
                 message: "Um erro ocorre \(error)"
             )
         }
+    }
+    
+    func deleteDidTapped(_ fields: DeleteFields) {
+        do {
+            try client.delete(DeleteParams(
+                application: application,
+                identifier: fields.account
+            ))
+            presentAlert(
+                withTitle: "Delete Succeded",
+                message: "Conta \(fields.account) removida com successo do keychain"
+            )
+        } catch let error {
+            presentAlert(
+                withTitle: "Delete Failed",
+                message: "Um erro ocorre \(error)"
+            )
+        }
+    }
+    
+    func listDidTapped() {
+        let params = ListParams(application: application)
+        let result = (try? client.list(params)) ?? []
+        contentView.reloadList(with: result)
     }
 }
 
