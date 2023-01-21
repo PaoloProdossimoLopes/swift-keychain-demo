@@ -29,6 +29,7 @@
 		B1D6999E297BE78000B82032 /* KeychainListerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6999D297BE78000B82032 /* KeychainListerAdapter.swift */; };
 		B1D699A0297BE7A600B82032 /* Lister.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6999F297BE7A600B82032 /* Lister.swift */; };
 		B1D699A2297C083800B82032 /* KeychainWritterAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D699A1297C083800B82032 /* KeychainWritterAdapterTests.swift */; };
+		B1D699A4297C173E00B82032 /* KeychainListerAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D699A3297C173E00B82032 /* KeychainListerAdapterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		B1D6999D297BE78000B82032 /* KeychainListerAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainListerAdapter.swift; sourceTree = "<group>"; };
 		B1D6999F297BE7A600B82032 /* Lister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lister.swift; sourceTree = "<group>"; };
 		B1D699A1297C083800B82032 /* KeychainWritterAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWritterAdapterTests.swift; sourceTree = "<group>"; };
+		B1D699A3297C173E00B82032 /* KeychainListerAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainListerAdapterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				B1D699A1297C083800B82032 /* KeychainWritterAdapterTests.swift */,
+				B1D699A3297C173E00B82032 /* KeychainListerAdapterTests.swift */,
 			);
 			path = "swift-keychain-adavanced-demoTests";
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1D699A4297C173E00B82032 /* KeychainListerAdapterTests.swift in Sources */,
 				B1D699A2297C083800B82032 /* KeychainWritterAdapterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

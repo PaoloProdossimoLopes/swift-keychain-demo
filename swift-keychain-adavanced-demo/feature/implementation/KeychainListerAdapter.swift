@@ -1,6 +1,6 @@
 import Foundation
 
-final class KeychainListerAdapter: Lister {
+struct KeychainListerAdapter: Lister {
     
     typealias Operation = (CFDictionary, UnsafeMutablePointer<CFTypeRef?>?) -> OSStatus
     var read: Operation = SecItemCopyMatching
@@ -17,9 +17,14 @@ final class KeychainListerAdapter: Lister {
         var result: AnyObject?
         let status = read(query as CFDictionary, &result)
         
+        guard status != errSecItemNotFound else {
+            throw KeychainError.notFound
+        }
+        
         guard status == errSecSuccess else {
             throw KeychainError.unexpected(status)
         }
+        
         let array = result as! [NSDictionary]
         
         let params = array.map { dic in
