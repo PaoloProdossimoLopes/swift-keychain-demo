@@ -6,6 +6,6 @@ struct DeleteParams {
     let security: String
 }
 
-protocol DeleterSecureClient {
+protocol Deleter {
     func delete(_ params: DeleteParams) throws
 }

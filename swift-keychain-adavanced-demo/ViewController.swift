@@ -1,16 +1,16 @@
 import UIKit
 
+typealias ReaderAndWritter = Writter & Reader & Lister
+
 final class ViewController: UIViewController {
     
-    private var writter: WritterSecureClient
-    private var reader: ReaderSecureClient
+    private var client: ReaderAndWritter
     private let application = "example.appliaction.com"
     
     private lazy var contentView = View()
     
-    init(writter: WritterSecureClient, reader: ReaderSecureClient) {
-        self.writter = writter
-        self.reader = reader
+    init(client: ReaderAndWritter) {
+        self.client = client
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,9 +40,15 @@ final class ViewController: UIViewController {
 }
 
 extension ViewController: ViewDelegate {
+    func listDidTapped() {
+        let params = ListParams(application: application)
+        let result = (try? client.list(params)) ?? []
+        contentView.reloadList(with: result)
+    }
+    
     func writeDidTapped(_ fields: WriteFields) {
         do {
-            try writter.write(WritterParams(
+            try client.write(WritterParams(
                 application: application,
                 identifier: fields.account,
                 secure: fields.password.data(using: .utf8)!
@@ -61,15 +67,11 @@ extension ViewController: ViewDelegate {
     
     func getDidTapped(_ fields: ReadFields) {
         do {
-            let result = try reader.read(ReadParams(
+            let result = try client.read(ReadParams(
                 application: application,
                 identifier: fields.account
             ))
             let passwordRecieved = result.secure.asString
-            presentAlert(
-                withTitle: "Read Success",
-                message: "pego com com sucesso, a senha é \(passwordRecieved)"
-            )
         } catch let error {
             presentAlert(
                 withTitle: "Read Failed",

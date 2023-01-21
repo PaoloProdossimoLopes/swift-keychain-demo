@@ -12,11 +12,13 @@ struct ReadFields {
 protocol ViewDelegate: AnyObject {
     func writeDidTapped(_ fields: WriteFields)
     func getDidTapped(_ fields: ReadFields)
+    func listDidTapped()
 }
 
 final class View: UIView {
     
     weak var delegate: ViewDelegate?
+    private var params = [ListResult]()
     
     private lazy var writeAccountPlaceholder: UITextField = {
         let field = UITextField()
@@ -63,6 +65,24 @@ final class View: UIView {
         return button
     }()
     
+    private lazy var listButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("List", for: .normal)
+        button.backgroundColor = .systemRed
+        button.layer.cornerRadius = 8
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        button.addTarget(self, action: #selector(listDidTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var tableView: UITableView = {
+        let table = UITableView()
+        table.dataSource = self
+        return table
+    }()
+    
     private lazy var stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -75,7 +95,7 @@ final class View: UIView {
         super.init(frame: frame)
         [
             writeAccountPlaceholder, writePasswordPlaceholder, writeButton,
-            getAccountPlaceholder, getButton, UIView()
+            getAccountPlaceholder, getButton, listButton, tableView
         ].forEach(stack.addArrangedSubview)
         
         addSubview(stack)
@@ -85,6 +105,11 @@ final class View: UIView {
             stack.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
             stack.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+    
+    func reloadList(with result: [ListResult]) {
+        params = result
+        tableView.reloadData()
     }
     
     required init?(coder: NSCoder) { nil }
@@ -100,5 +125,28 @@ final class View: UIView {
         delegate?.getDidTapped(ReadFields(
             account: getAccountPlaceholder.text!
         ))
+    }
+    
+    @objc private func listDidTapped() {
+        delegate?.listDidTapped()
+    }
+}
+
+extension View: UITableViewDataSource {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        params.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        let param = params[indexPath.row]
+        cell.textLabel?.text = """
+        Aplication: \(param.application)
+        Identifier: \(param.identifier)
+        Security: \(param.security)
+        """
+        cell.textLabel?.numberOfLines = 0
+        cell.selectionStyle = .none
+        return cell
     }
 }

@@ -5,6 +5,6 @@ struct UpdateParams {
     let identifier: String
 }
 
-protocol UpdaterSecureClient {
+protocol Updater {
     func update(_ params: DeleteParams) throws
 }
