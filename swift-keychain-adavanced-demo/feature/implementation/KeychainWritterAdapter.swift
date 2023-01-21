@@ -1,7 +1,8 @@
 import Foundation
 
 struct KeychainWritterAdapter: Writter {
-    typealias Operation = (CFDictionary, UnsafeMutablePointer<CFTypeRef?>?) -> OSStatus
+    typealias Reference = UnsafeMutablePointer<CFTypeRef?>
+    typealias Operation = (CFDictionary, Reference?) -> OSStatus
     var write: Operation = SecItemAdd
     
     func write(_ params: WritterParams) throws {

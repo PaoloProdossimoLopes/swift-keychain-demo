@@ -1,8 +1,8 @@
 import Foundation
 
 struct KeychainReaderAdapter: Reader {
-    
-    typealias Operation = (CFDictionary, UnsafeMutablePointer<CFTypeRef?>?) -> OSStatus
+    typealias Reference = UnsafeMutablePointer<CFTypeRef?>?
+    typealias Operation = (CFDictionary, Reference) -> OSStatus
     var read: Operation = SecItemCopyMatching
     
     func read(_ params: ReadParams) throws -> ReadResult {

@@ -3,7 +3,7 @@ import Foundation
 struct UpdateParams {
     let application: String
     let identifier: String
-    let security: String
+    let security: Data
 }
 
 protocol Updater {

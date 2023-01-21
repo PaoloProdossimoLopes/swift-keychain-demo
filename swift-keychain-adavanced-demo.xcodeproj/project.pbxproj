@@ -32,6 +32,7 @@
 		B1D699A4297C173E00B82032 /* KeychainListerAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D699A3297C173E00B82032 /* KeychainListerAdapterTests.swift */; };
 		B1D699A6297C21A300B82032 /* KeychainReaderAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D699A5297C21A300B82032 /* KeychainReaderAdapterTests.swift */; };
 		B1D699A8297C28AC00B82032 /* KeychainDeleterAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D699A7297C28AC00B82032 /* KeychainDeleterAdapterTests.swift */; };
+		B1D699AA297C2A1400B82032 /* KeychainUpdaterAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D699A9297C2A1400B82032 /* KeychainUpdaterAdapterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		B1D699A3297C173E00B82032 /* KeychainListerAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainListerAdapterTests.swift; sourceTree = "<group>"; };
 		B1D699A5297C21A300B82032 /* KeychainReaderAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainReaderAdapterTests.swift; sourceTree = "<group>"; };
 		B1D699A7297C28AC00B82032 /* KeychainDeleterAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainDeleterAdapterTests.swift; sourceTree = "<group>"; };
+		B1D699A9297C2A1400B82032 /* KeychainUpdaterAdapterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainUpdaterAdapterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				B1D6994D297B375700B82032 /* AppDelegate.swift */,
 				B1D6994F297B375700B82032 /* SceneDelegate.swift */,
 				B1D69951297B375700B82032 /* ViewController.swift */,
+				B1D69984297B3A5C00B82032 /* KeychainAdapter.swift */,
 				B1D69986297B7C7E00B82032 /* View.swift */,
 				B1D69956297B375900B82032 /* Assets.xcassets */,
 				B1D69958297B375900B82032 /* LaunchScreen.storyboard */,
@@ -130,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				B1D699A1297C083800B82032 /* KeychainWritterAdapterTests.swift */,
+				B1D699A9297C2A1400B82032 /* KeychainUpdaterAdapterTests.swift */,
 				B1D699A7297C28AC00B82032 /* KeychainDeleterAdapterTests.swift */,
 				B1D699A3297C173E00B82032 /* KeychainListerAdapterTests.swift */,
 				B1D699A5297C21A300B82032 /* KeychainReaderAdapterTests.swift */,
@@ -162,7 +166,6 @@
 		B1D69983297B3A5000B82032 /* implementation */ = {
 			isa = PBXGroup;
 			children = (
-				B1D69984297B3A5C00B82032 /* KeychainAdapter.swift */,
 				B1D6998C297B83BC00B82032 /* KeychainError.swift */,
 				B1D6998E297B83CD00B82032 /* KeychainWritterAdapter.swift */,
 				B1D6999D297BE78000B82032 /* KeychainListerAdapter.swift */,
@@ -312,6 +315,7 @@
 				B1D699A4297C173E00B82032 /* KeychainListerAdapterTests.swift in Sources */,
 				B1D699A2297C083800B82032 /* KeychainWritterAdapterTests.swift in Sources */,
 				B1D699A6297C21A300B82032 /* KeychainReaderAdapterTests.swift in Sources */,
+				B1D699AA297C2A1400B82032 /* KeychainUpdaterAdapterTests.swift in Sources */,
 				B1D699A8297C28AC00B82032 /* KeychainDeleterAdapterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

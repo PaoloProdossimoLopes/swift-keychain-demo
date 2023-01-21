@@ -1,6 +1,6 @@
 import Foundation
 
-final class KeychainUpdaterAdapter: Updater {
+struct KeychainUpdaterAdapter: Updater {
     typealias Operation = (CFDictionary, CFDictionary) -> OSStatus
     var update: Operation = SecItemUpdate
     

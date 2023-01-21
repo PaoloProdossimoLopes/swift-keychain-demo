@@ -2,7 +2,8 @@ import Foundation
 
 struct KeychainListerAdapter: Lister {
     
-    typealias Operation = (CFDictionary, UnsafeMutablePointer<CFTypeRef?>?) -> OSStatus
+    typealias Reference = UnsafeMutablePointer<CFTypeRef?>
+    typealias Operation = (CFDictionary, Reference?) -> OSStatus
     var read: Operation = SecItemCopyMatching
     
     func list(_ params: ListParams) throws -> [ListResult] {
